@@ -1,0 +1,28 @@
+<div>
+  <span>Player Score: </span>
+  <span>{{playerScore}}</span>
+  <span>AI Score: </span>
+  <span>{{aiScore}}</span>
+  <span>Your Turn? </span>
+  <span>{{isPlayersTurn}}</span> <!-- todo: make a pipe for this to go to proper case -->
+</div>
+<table class="gameboard">
+  <tr>
+    <td attr.data-iswinner="{{gameState[0][0].isWinner}}" (click)="gridSelected(0,0)">{{gameState[0][0].value}}</td>
+    <td attr.data-iswinner="{{gameState[0][1].isWinner}}" (click)="gridSelected(0,1)">{{gameState[0][1].value}}</td>
+    <td attr.data-iswinner="{{gameState[0][2].isWinner}}" (click)="gridSelected(0,2)">{{gameState[0][2].value}}</td>
+  </tr>
+  <tr>
+    <td attr.data-iswinner="{{gameState[1][0].isWinner}}" (click)="gridSelected(1,0)">{{gameState[1][0].value}}</td>
+    <td attr.data-iswinner="{{gameState[1][1].isWinner}}" (click)="gridSelected(1,1)">{{gameState[1][1].value}}</td>
+    <td attr.data-iswinner="{{gameState[1][2].isWinner}}" (click)="gridSelected(1,2)">{{gameState[1][2].value}}</td>
+  </tr>
+  <tr>
+    <td attr.data-iswinner="{{gameState[2][0].isWinner}}" (click)="gridSelected(2,0)">{{gameState[2][0].value}}</td>
+    <td attr.data-iswinner="{{gameState[2][1].isWinner}}" (click)="gridSelected(2,1)">{{gameState[2][1].value}}</td>
+    <td attr.data-iswinner="{{gameState[2][2].isWinner}}" (click)="gridSelected(2,2)">{{gameState[2][2].value}}</td>
+  </tr>
+</table>
+<div>
+  <input type="button" value="New Game!" (click)="newGame()" />
+</div>

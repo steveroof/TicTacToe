@@ -1,0 +1,14 @@
+.gameboard td{
+    height:100px;
+    width: 100px;
+    border:1px solid grey;
+    text-align: center;
+}
+
+.gameboard td:hover{
+    border:1px solid red;
+}
+
+.gameboard td[data-iswinner=true]{
+    background-color: yellow;
+}

@@ -3,11 +3,15 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { OuterFrameComponent } from './outer-frame/outer-frame.component';
+import { GameBoardComponent } from './game-board/game-board.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    OuterFrameComponent,
+    GameBoardComponent
   ],
   imports: [
     BrowserModule
