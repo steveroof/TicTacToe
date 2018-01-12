@@ -14,6 +14,8 @@ export class GameBoardComponent implements OnInit {
   playerScore: number = 0;
   aiScore: number = 0;
   isGameOver: boolean = false;
+  list: number[] = [0, 1, 2];
+  winningStates: winningState[];
 
   constructor() { }
 
@@ -21,13 +23,42 @@ export class GameBoardComponent implements OnInit {
     this.initializeGameState();
   }
 
+  evaluateGameState() {
+    //possible states that would be a win: 3 rows, 3 columns, 2 diagonals = 8 total
+    this.winningStates = [];
+    let ws: winningState;
+    let ws2: winningState;
+
+    //rows and columns
+    for (let i of this.list) {
+      ws = new winningState();
+      ws2 = new winningState();
+      for (let j of this.list) {
+        ws.cells[j] = this.gameState[i][j];
+        ws2.cells[j] = this.gameState[j][i];
+      }
+      this.winningStates.push(ws);
+      this.winningStates.push(ws2);
+    }
+
+    //diagonals
+    ws = new winningState()
+    ws2 = new winningState()
+    for (let i of this.list) {
+      ws.cells[i] = this.gameState[i][i];
+      ws2.cells[i] = this.gameState[i][2 - i];
+    }
+    this.winningStates.push(ws);
+    this.winningStates.push(ws2);
+  }
+
   initializeGameState() {
     //create the 2d array representing the game state
     this.gameState = [];
-    for (var i: number = 0; i < 3; i++) {
-      this.gameState[i] = [];
-      for (var j: number = 0; j < 3; j++) {
-        this.gameState[i][j] = new cell();
+    for (let row of this.list) {
+      this.gameState[row] = [];
+      for (let column of this.list) {
+        this.gameState[row][column] = new cell();
       }
     }
 
@@ -35,7 +66,7 @@ export class GameBoardComponent implements OnInit {
     if (!this.isPlayersTurn) this.aiMove();
   }
 
-  gridSelected(row: number, column: number) {
+  playerMove(row: number, column: number) {
     if (this.isGameOver) {
       alert('The game is over!');
       return;
@@ -52,54 +83,33 @@ export class GameBoardComponent implements OnInit {
   }
   //todo: create "ai service"
   aiMove() {
-    let exitLoop: boolean = false;
-
-    for (var i: number = 0; i < 3; i++) {
-      if (!exitLoop) {
-        for (var j: number = 0; j < 3; j++) {
-          if (this.gameState[i][j].value == "") {
-            this.gameState[i][j].value = this.aiMarker;
-            exitLoop = true;
-            break;
-          }
+    for (let row of this.list) {
+      for (let column of this.list) {
+        if (this.gameState[row][column].value == "") {
+          this.gameState[row][column].value = this.aiMarker;
+          this.checkWinner(this.aiMarker);
+          return;
         }
       }
     }
-    this.checkWinner(this.aiMarker);
   }
 
   checkWinner(marker: string) {
 
-    //complete row
-    for (var row: number = 0; row < 3; row++) {
-      if (this.gameState[row][0].value == marker && this.gameState[row][1].value == marker && this.gameState[row][2].value == marker) {
-        this.gameState[row][0].isWinner = true;
-        this.gameState[row][1].isWinner = true;
-        this.gameState[row][2].isWinner = true;
+    this.evaluateGameState();
+
+    let count: number;
+    for (let state of this.winningStates) {
+      count = 0;
+      for (let cell of state.cells) {
+        if (cell.value == marker) count++;
+      }
+      if (count == 3) {
+        for (let cell of state.cells) {
+          cell.isWinner = true;
+        }
         this.setWinner(marker);
       }
-    }
-    //complete column
-    for (var column: number = 0; column < 3; column++) {
-      if (this.gameState[0][column].value == marker && this.gameState[1][column].value == marker && this.gameState[2][column].value == marker) {
-        this.gameState[0][column].isWinner = true;
-        this.gameState[1][column].isWinner = true;
-        this.gameState[2][column].isWinner = true;
-        this.setWinner(marker);
-      }
-    }
-    //complete diagonal
-    if (this.gameState[0][0].value == marker && this.gameState[1][1].value == marker && this.gameState[2][2].value == marker) {
-      this.gameState[0][0].isWinner = true;
-      this.gameState[1][1].isWinner = true;
-      this.gameState[2][2].isWinner = true;
-      this.setWinner(marker);
-    }
-    if (this.gameState[0][2].value == marker && this.gameState[1][1].value == marker && this.gameState[2][0].value == marker) {
-      this.gameState[0][2].isWinner = true;
-      this.gameState[1][1].isWinner = true;
-      this.gameState[2][0].isWinner = true;
-      this.setWinner(marker);
     }
   }
 
@@ -118,4 +128,8 @@ export class GameBoardComponent implements OnInit {
 class cell {
   value: string = "";
   isWinner: boolean = false;
+}
+
+class winningState {
+  cells: cell[] = [];
 }
