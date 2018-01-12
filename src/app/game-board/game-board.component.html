@@ -5,20 +5,8 @@
   <span>{{aiScore}}</span>
 </div>
 <table class="gameboard">
-  <tr>
-    <td attr.data-iswinner="{{gameState[0][0].isWinner}}" (click)="playerMove(0,0)">{{gameState[0][0].value}}</td>
-    <td attr.data-iswinner="{{gameState[0][1].isWinner}}" (click)="playerMove(0,1)">{{gameState[0][1].value}}</td>
-    <td attr.data-iswinner="{{gameState[0][2].isWinner}}" (click)="playerMove(0,2)">{{gameState[0][2].value}}</td>
-  </tr>
-  <tr>
-    <td attr.data-iswinner="{{gameState[1][0].isWinner}}" (click)="playerMove(1,0)">{{gameState[1][0].value}}</td>
-    <td attr.data-iswinner="{{gameState[1][1].isWinner}}" (click)="playerMove(1,1)">{{gameState[1][1].value}}</td>
-    <td attr.data-iswinner="{{gameState[1][2].isWinner}}" (click)="playerMove(1,2)">{{gameState[1][2].value}}</td>
-  </tr>
-  <tr>
-    <td attr.data-iswinner="{{gameState[2][0].isWinner}}" (click)="playerMove(2,0)">{{gameState[2][0].value}}</td>
-    <td attr.data-iswinner="{{gameState[2][1].isWinner}}" (click)="playerMove(2,1)">{{gameState[2][1].value}}</td>
-    <td attr.data-iswinner="{{gameState[2][2].isWinner}}" (click)="playerMove(2,2)">{{gameState[2][2].value}}</td>
+  <tr *ngFor="let row of list">
+    <td *ngFor="let column of list" attr.data-iswinner="{{gameState[row][column].isWinner}}" (click)="playerMove(row,column)">{{gameState[row][column].value}}</td>
   </tr>
 </table>
 <div>
