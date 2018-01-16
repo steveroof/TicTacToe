@@ -16,10 +16,12 @@ export class GameBoardComponent implements OnInit {
   isGameOver: boolean = false;
   list: number[] = [0, 1, 2];
   winningStates: winningState[];
+  gameHistory: cell[][][];
 
   constructor() { }
 
   ngOnInit() {
+    this.gameHistory = [];
     this.initializeGameState();
   }
 
@@ -106,7 +108,7 @@ export class GameBoardComponent implements OnInit {
       }
       if (count == 3) {
         for (let cell of state.cells) {
-          cell.isWinner = true;
+          marker == this.playerMarker ? cell.isWinner = winningCell.Player : cell.isWinner = winningCell.AI;
         }
         this.setWinner(marker);
       }
@@ -120,16 +122,27 @@ export class GameBoardComponent implements OnInit {
   }
 
   newGame() {
+    this.commitHistory();
     this.isGameOver = false;
     this.initializeGameState();
+  }
+
+  commitHistory() {
+    this.gameHistory.push(this.gameState);
   }
 }
 
 class cell {
   value: string = "";
-  isWinner: boolean = false;
+  isWinner: winningCell = winningCell.None;
 }
 
 class winningState {
   cells: cell[] = [];
+}
+
+enum winningCell {
+  None = 0,
+  Player = 1,
+  AI = 2
 }
