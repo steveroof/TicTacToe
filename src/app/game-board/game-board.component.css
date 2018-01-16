@@ -1,18 +1,22 @@
 .gameboard td{
     height:100px;
     width: 100px;
-    border:1px solid grey;
+    border:1px dotted grey;
     text-align: center;
+
+    font-size: 50pt;
+    font-weight: bold;
+    font-family: 'Courier New', 'Courier', 'monospace';
 }
 
 .gameboard td:hover{
-    border:1px solid red;
+    border:1px solid black;
 }
 
 .gameboard td[data-iswinner="1"]{
-    background-color: green;
+    background-color: yellowgreen;
 }
 
 .gameboard td[data-iswinner="2"]{
-    background-color: yellow;
+    background-color: salmon;
 }
