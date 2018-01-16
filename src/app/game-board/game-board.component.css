@@ -9,6 +9,10 @@
     border:1px solid red;
 }
 
-.gameboard td[data-iswinner=true]{
+.gameboard td[data-iswinner="1"]{
+    background-color: green;
+}
+
+.gameboard td[data-iswinner="2"]{
     background-color: yellow;
 }
