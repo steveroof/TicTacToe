@@ -113,6 +113,18 @@ export class GameBoardComponent implements OnInit {
         this.setWinner(marker);
       }
     }
+    let flatArray: cell[] = [];
+    if (!this.isGameOver) { //check if it's a draw
+      for (let row of this.list) {
+        for (let column of this.list)
+          flatArray.push(this.gameState[row][column]);
+      }
+      if (flatArray.every(this.allSpotsTakenNoWinner)) this.isGameOver = true;
+    }
+  }
+
+  allSpotsTakenNoWinner(cell: cell) {
+    return (cell.value != "" && cell.isWinner == winningCell.None);
   }
 
   setWinner(marker: string) {
