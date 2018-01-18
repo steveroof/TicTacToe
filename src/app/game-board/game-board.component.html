@@ -11,7 +11,7 @@
   </tr>
 </table>
 <div>
-  <input type="button" value="New Game!" (click)="newGame()" />
+  <input type="button" value="New Game!" (click)="newGame()" [disabled]="!isGameOver" />
 </div>
 
 <div class="container">
