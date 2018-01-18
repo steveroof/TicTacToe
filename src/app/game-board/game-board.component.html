@@ -4,6 +4,7 @@
   <span>AI Score: </span>
   <span>{{aiScore}}</span>
 </div>
+
 <table id="currentGame" class="gameboard">
   <tr *ngFor="let row of list">
     <td *ngFor="let column of list" attr.data-iswinner="{{gameState[row][column].isWinner}}" (click)="playerMove(row,column)">{{gameState[row][column].value}}</td>
@@ -12,11 +13,13 @@
 <div>
   <input type="button" value="New Game!" (click)="newGame()" />
 </div>
-<div *ngFor="let game of gameHistory">
-  <hr>
-  <table class="gameboard">
-    <tr *ngFor="let row of list">
-      <td *ngFor="let column of list" attr.data-iswinner="{{game[row][column].isWinner}}">{{game[row][column].value}}</td>
-    </tr>
-  </table>
+
+<div class="container">
+  <div *ngFor="let game of gameHistory">
+    <table class="gameboard">
+      <tr *ngFor="let row of list">
+        <td *ngFor="let column of list" attr.data-iswinner="{{game[row][column].isWinner}}">{{game[row][column].value}}</td>
+      </tr>
+    </table>
+  </div>
 </div>
