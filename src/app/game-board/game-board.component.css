@@ -3,14 +3,21 @@
     width: 100px;
     border:1px dotted grey;
     text-align: center;
+}
 
+#currentGame td:hover{
+    border:1px solid black;
+}
+
+.gameboard td{
     font-size: 50pt;
     font-weight: bold;
     font-family: 'Courier New', 'Courier', 'monospace';
+    color: grey;
 }
 
-.gameboard td:hover{
-    border:1px solid black;
+#currentGame.gameboard td{
+    color:black;
 }
 
 .gameboard td[data-iswinner="1"]{

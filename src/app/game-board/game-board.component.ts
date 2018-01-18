@@ -128,7 +128,7 @@ export class GameBoardComponent implements OnInit {
   }
 
   commitHistory() {
-    this.gameHistory.push(this.gameState);
+    this.gameHistory.unshift(this.gameState);
   }
 }
 
