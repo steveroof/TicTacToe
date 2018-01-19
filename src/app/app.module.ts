@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { OuterFrameComponent } from './outer-frame/outer-frame.component';
 import { GameBoardComponent } from './game-board/game-board.component';
+import { GameLogicService } from './game-logic.service';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { GameBoardComponent } from './game-board/game-board.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [GameLogicService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,8 +16,9 @@ export class OuterFrameComponent implements OnInit {
     this.Title = "Tic Tac Toe!";
   }
 
-  onIncreaseScore(isPlayer: boolean) {
-    isPlayer ? this.playerScore++ : this.aiScore++;
+  onUpdateScore(score: number[]) {
+    this.playerScore = score[0];
+    this.aiScore = score[1];
   }
 
 }
