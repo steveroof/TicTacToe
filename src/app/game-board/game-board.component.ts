@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-game-board',
@@ -7,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameBoardComponent implements OnInit {
 
+  @Output() onIncreaseScore = new EventEmitter<boolean>();
+
   gameState: cell[][];
   isPlayersTurn: boolean = false;
   playerMarker: string = "X";
   aiMarker: string = "O";
-  playerScore: number = 0;
-  aiScore: number = 0;
   isGameOver: boolean = false;
   list: number[] = [0, 1, 2];
   winningStates: winningState[];
@@ -129,8 +129,12 @@ export class GameBoardComponent implements OnInit {
 
   setWinner(marker: string) {
     this.isGameOver = true;
-    if (marker == this.playerMarker) this.playerScore++;
-    if (marker == this.aiMarker) this.aiScore++;
+    if (marker == this.playerMarker) this.increaseScore(true);
+    if (marker == this.aiMarker) this.increaseScore(false);
+  }
+
+  increaseScore(isPlayer: boolean) {
+    this.onIncreaseScore.emit(isPlayer);
   }
 
   newGame() {

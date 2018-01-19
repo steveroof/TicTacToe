@@ -1,10 +1,3 @@
-<div>
-  <span>Player Score: </span>
-  <span>{{playerScore}}</span>
-  <span>AI Score: </span>
-  <span>{{aiScore}}</span>
-</div>
-
 <table id="currentGame" class="gameboard">
   <tr *ngFor="let row of list">
     <td *ngFor="let column of list" attr.data-iswinner="{{gameState[row][column].isWinner}}" (click)="playerMove(row,column)">{{gameState[row][column].value}}</td>
