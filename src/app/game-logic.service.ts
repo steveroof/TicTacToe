@@ -13,6 +13,7 @@ export class GameLogicService {
   gameHistory: cell[][][];
   playerScore: number = 0;
   aiScore: number = 0;
+  totalGames: number = 1;
 
   constructor() {
     this.gameHistory = [];
@@ -131,10 +132,11 @@ export class GameLogicService {
     this.commitHistory();
     this.isGameOver = false;
     this.initializeGameState();
+    this.totalGames++;
   }
 
   commitHistory() {
-    this.gameHistory.unshift(this.gameState);
+    this.gameHistory.push(this.gameState);
   }
 }
 

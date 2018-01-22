@@ -2,25 +2,27 @@
     border: 1px solid black;
     margin:10px;
 }
+
 .gameboard td{
+    border:1px dotted white;
+    text-align: center;
+    font-weight: bold;
+}
+.current td{
     height:100px;
     width: 100px;
-    border:1px dotted grey;
-    text-align: center;
-}
-
-#currentGame td:hover{
-    border:1px solid black;
-}
-
-.gameboard td{
     font-size: 50pt;
-    font-weight: bold;
-    color: grey;
 }
 
-#currentGame.gameboard td{
-    color:black;
+.history td{
+    height:50px;
+    width: 50px;
+    font-size: 25pt;
+}
+
+.current td:hover{
+    border:1px solid yellowgreen;
+    cursor:pointer;
 }
 
 .gameboard td[data-iswinner="1"]{
@@ -31,8 +33,55 @@
     background-color: salmon;
 }
 
-.container{
+.gameboard td[data-value="X"]{
+    color:yellowgreen;
+}
+
+.gameboard td[data-value="O"]{
+    color:salmon;
+}
+
+.gameboard td[data-iswinner="1"]{
+    text-shadow: 0px 0px 5px black; 
+}
+
+.gameboard td[data-iswinner="2"]{
+    text-shadow: 0px 0px 5px black; 
+}
+
+.historyContainer{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content:center;
+}
+
+.centerFlex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.buttonArea{
+    padding:10px;
+    font-size: 25px;
+    width:200px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.newGame{
+    border:1px dotted white;
+}
+
+.newGame:hover{
+    color:yellowgreen;
+    border:1px dotted yellowgreen;
+    cursor:pointer;
+}
+
+.gameCount{
+    border:1px dotted black;
 }

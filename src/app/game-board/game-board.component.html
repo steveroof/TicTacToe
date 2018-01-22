@@ -1,22 +1,21 @@
-<table id="currentGame" class="gameboard">
-  <tr *ngFor="let row of list">
-    <td *ngFor="let column of list" attr.data-iswinner="{{s.gameState[row][column].isWinner}}" (click)="playerMove(row,column)">{{s.gameState[row][column].value}}</td>
-  </tr>
-</table>
-<div>
-  <input type="button" value="New Game!" (click)="newGame()" [disabled]="!s.isGameOver" />
+<div class="centerFlex">
+  <table class="gameboard current">
+    <tr *ngFor="let row of list">
+      <td *ngFor="let column of list" attr.data-iswinner="{{s.gameState[row][column].isWinner}}" attr.data-value="{{s.gameState[row][column].value}}"
+        (click)="playerMove(row,column)">{{s.gameState[row][column].value}}</td>
+    </tr>
+  </table>
+  <div *ngIf="s.isGameOver" class="buttonArea newGame" (click)="newGame()">New Game</div>
+  <div *ngIf="!s.isGameOver" class="buttonArea gameCount">Game #{{s.totalGames}}</div>
 </div>
-
 <hr>
 
-<div class="container">
-  <div *ngFor="let game of s.gameHistory">
-    <table class="gameboard">
-      <tr *ngFor="let row of list">
-        <td *ngFor="let column of list" attr.data-iswinner="{{game[row][column].isWinner}}">{{game[row][column].value}}</td>
-      </tr>
-    </table>
-  </div>
+<div class="historyContainer">
+  <table *ngFor="let game of s.gameHistory" class="gameboard history">
+    <tr *ngFor="let row of list">
+      <td *ngFor="let column of list" attr.data-iswinner="{{game[row][column].isWinner}}" attr.data-value="{{game[row][column].value}}">{{game[row][column].value}}</td>
+    </tr>
+  </table>
 </div>
 
 <hr>
