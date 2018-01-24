@@ -16,15 +16,25 @@ export class GameBoardComponent implements OnInit {
   constructor(private s: GameLogicService) { }
 
   ngOnInit() {
-
+    //update score board when history is first loaded
+    this.pushScoreBoard();
   }
 
   playerMove(row: number, column: number) {
     this.s.playerMove(row, column);
-    this.onUpdateScore.emit([this.s.playerScore, this.s.aiScore]);
+    this.pushScoreBoard();
   }
 
   newGame() {
     this.s.newGame();
+  }
+
+  newSession() {
+    this.s.newSession();
+    this.pushScoreBoard();
+  }
+
+  pushScoreBoard() {
+    this.onUpdateScore.emit([this.s.playerScore, this.s.aiScore]);
   }
 }

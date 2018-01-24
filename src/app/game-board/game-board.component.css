@@ -63,11 +63,18 @@
     align-items: center;
 }
 
+.rowFlex{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .buttonArea{
     padding:10px;
     font-size: 25px;
-    width:200px;
+    width:175px;
     text-align: center;
     font-weight: bold;
 }

@@ -1,4 +1,7 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
+import { cell, winningState, winningCell, gameSession } from './app.module';
+import { DataService } from './data.service';
+import { setServers } from 'dns';
 
 @Injectable()
 export class GameLogicService {
@@ -15,9 +18,10 @@ export class GameLogicService {
   aiScore: number = 0;
   totalGames: number = 1;
 
-  constructor() {
+  constructor(private d: DataService) {
     this.gameHistory = [];
     this.initializeGameState();
+    this.loadPreviousSession();
   }
 
   evaluateGameState() {
@@ -138,19 +142,23 @@ export class GameLogicService {
   commitHistory() {
     this.gameHistory.push(this.gameState);
   }
-}
 
-class cell {
-  value: string = "";
-  isWinner: winningCell = winningCell.None;
-}
+  loadPreviousSession() {
+    let gs: gameSession = this.d.loadPreviousSession();
+    this.setSession(gs);
+  }
 
-class winningState {
-  cells: cell[] = [];
-}
+  newSession() {
+    this.newGame();
+    this.d.deleteSession();
+    let gs: gameSession = new gameSession();
+    this.setSession(gs);
+  }
 
-enum winningCell {
-  None = 0,
-  Player = 1,
-  AI = 2
+  setSession(gs: gameSession) {
+    this.gameHistory = gs.gameHistory;
+    this.totalGames = gs.gameCount + 1;
+    this.playerScore = gs.playerScore;
+    this.aiScore = gs.aiScore;
+  }
 }

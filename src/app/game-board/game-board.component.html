@@ -5,7 +5,10 @@
         (click)="playerMove(row,column)">{{s.gameState[row][column].value}}</td>
     </tr>
   </table>
-  <div *ngIf="s.isGameOver" class="buttonArea newGame" (click)="newGame()">New Game</div>
+  <div class="rowFlex">
+    <div *ngIf="s.isGameOver" class="buttonArea newGame" (click)="newGame()">New Game</div>
+    <div *ngIf="s.isGameOver" class="buttonArea newGame" (click)="newSession()">New Session</div>
+  </div>
   <div *ngIf="!s.isGameOver" class="buttonArea gameCount">Game #{{s.totalGames}}</div>
 </div>
 <hr>
