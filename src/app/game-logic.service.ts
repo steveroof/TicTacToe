@@ -20,7 +20,6 @@ export class GameLogicService {
   constructor(private d: DataService) {
     this.gameHistory = [];
     this.initializeGameState();
-    this.loadPreviousSession();
   }
 
   evaluateGameState() {
@@ -140,16 +139,22 @@ export class GameLogicService {
 
   commitHistory() {
     this.gameHistory.push(this.gameState);
+    this.d.addGameToDatabase(this.gameState);
   }
 
   loadPreviousSession() {
-    let gs: gameSession = this.d.loadPreviousSession();
-    this.setSession(gs);
+    let promise = new Promise(resolve => {
+      this.d.loadHistoryFromDatabase().then(success=>{
+        this.setSession(this.d.results);
+        resolve();
+      })
+    });
+    return promise;
   }
 
   newSession() {
     this.newGame();
-    this.d.deleteSession();
+    this.d.deleteGameFromDatabase();
     let gs: gameSession = new gameSession();
     this.setSession(gs);
   }

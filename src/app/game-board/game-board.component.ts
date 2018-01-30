@@ -17,7 +17,7 @@ export class GameBoardComponent implements OnInit {
 
   ngOnInit() {
     //update score board when history is first loaded
-    this.pushScoreBoard();
+    this.s.loadPreviousSession().then(resolve => { this.pushScoreBoard() });
   }
 
   playerMove(row: number, column: number) {

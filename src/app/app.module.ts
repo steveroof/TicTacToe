@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { OuterFrameComponent } from './outer-frame/outer-frame.component';
@@ -16,7 +16,8 @@ import { DataService } from './data.service';
     GameBoardComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [GameLogicService, DataService],
   bootstrap: [AppComponent]

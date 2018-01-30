@@ -1,23 +1,42 @@
 import { Injectable } from '@angular/core';
 import { cell, gameSession } from './app.module';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DataService {
 
-  constructor() { }
+  apiRoot: string = "http://localhost:5000/api";
+  results: gameSession;
 
-  loadPreviousSession(): gameSession {
-    //code to load from DB here
-    let r = new gameSession();
-    let json: string = '[[[{"value":"O","isWinner":0},{"value":"O","isWinner":0},{"value":"X","isWinner":1}],[{"value":"","isWinner":0},{"value":"X","isWinner":1},{"value":"","isWinner":0}],[{"value":"X","isWinner":1},{"value":"","isWinner":0},{"value":"","isWinner":0}]],[[{"value":"O","isWinner":2},{"value":"O","isWinner":2},{"value":"O","isWinner":2}],[{"value":"","isWinner":0},{"value":"","isWinner":0},{"value":"X","isWinner":0}],[{"value":"","isWinner":0},{"value":"","isWinner":0},{"value":"X","isWinner":0}]],[[{"value":"O","isWinner":0},{"value":"X","isWinner":1},{"value":"O","isWinner":0}],[{"value":"","isWinner":0},{"value":"X","isWinner":1},{"value":"","isWinner":0}],[{"value":"","isWinner":0},{"value":"X","isWinner":1},{"value":"","isWinner":0}]]]';
-    r.gameHistory = JSON.parse(json);
-    r.gameCount = 3;
-    r.aiScore = 1
-    r.playerScore = 2;
-    return r;
+  constructor(private http: HttpClient) { }
+
+  loadHistoryFromDatabase() {
+
+    let promise = new Promise(resolve => {
+      let apiURL = this.apiRoot + "/TicTacToe";
+      this.http.get(apiURL).toPromise().then(
+        success => {
+          this.results = new gameSession();
+          this.results.gameHistory[0] = JSON.parse(success[0].gameState);
+          this.results.gameCount = 3;
+          this.results.aiScore = 1
+          this.results.playerScore = 2;
+          resolve();
+        }
+      )
+    });
+    return promise;
   }
 
-  deleteSession() {
+  addGameToDatabase(gameState: cell[][]) {
+    let apiURL = this.apiRoot + "/TicTacToe";
+    let body = JSON.stringify(gameState);
+    let headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    this.http.post(apiURL, body, { headers }).subscribe(); //not working
+  }
+
+  deleteGameFromDatabase() {
     //code to delete from DB here
   }
 }
