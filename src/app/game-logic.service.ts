@@ -1,7 +1,6 @@
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { cell, winningState, winningCell, gameSession } from './app.module';
 import { DataService } from './data.service';
-import { setServers } from 'dns';
 
 @Injectable()
 export class GameLogicService {
