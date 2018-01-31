@@ -62,7 +62,8 @@ export class DataService {
   }
 
   deleteGameFromDatabase() {
-    //code to delete from DB here
+    let apiURL = this.apiRoot + "/TicTacToe";
+    this.http.delete(apiURL).subscribe();
   }
 }
 
