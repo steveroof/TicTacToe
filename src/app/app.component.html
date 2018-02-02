@@ -1,3 +1,12 @@
 <div class="centerFlex">
-    <app-outer-frame></app-outer-frame>
+    <router-outlet></router-outlet>
+    <div>
+        <h3>
+            <a routerLink="/game" routerLinkActive="active">Game</a>
+            |
+            <a routerLink="/about" routerLinkActive="active">About</a>
+            |
+            <a routerLink="/contact" routerLinkActive="active">Contact</a>
+        </h3>
+    </div>
 </div>
