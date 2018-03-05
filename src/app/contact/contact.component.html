@@ -1,3 +1,40 @@
-<p>
-  contact works!
-</p>
+<div class="container centerFlex">
+  <h1>Contact</h1>
+  <div [hidden]="submitted">
+    <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+      <div class="centerFlex">
+        <div>
+          <div class="label">Name: </div>
+          <input type="text" name="name" required [(ngModel)]="model.name" #name="ngModel">
+          <div [hidden]="name.valid || name.pristine" class="alert">
+            Name is required
+          </div>
+        </div>
+        <div>
+          <div class="label">Email: </div>
+          <input type="text" name="email" required [(ngModel)]="model.email" #email="ngModel">
+          <div [hidden]="email.valid || email.pristine" class="alert">
+            Email is required
+          </div>
+        </div>
+        <div>
+          <div class="label">Message: </div>
+          <textarea required name="message" [(ngModel)]="model.message" #message="ngModel"></textarea>
+          <div [hidden]="message.valid || message.pristine" class="alert">
+            Message is required
+          </div>
+        </div>
+        <button type="submit" [disabled]="!contactForm.form.valid">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div [hidden]="!submitted">
+  <div class="centerFlex">
+    <h2>You submitted the following:</h2>
+    <div>Name: {{ model.name }}</div>
+    <div>Email: {{ model.email }}</div>
+    <div>Message: {{ model.message }}</div>
+    <button (click)="submitted=false">Edit</button>
+  </div>
+</div>

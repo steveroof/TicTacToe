@@ -1,0 +1,30 @@
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+
+  .alert{
+      color:red;
+  }
+
+  .centerFlex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.label{
+  display: inline-block;
+  width:100px;
+}
+input[type="text"]{
+  width: 200px;
+}
+
+textarea{
+  width: 197px;
+}
