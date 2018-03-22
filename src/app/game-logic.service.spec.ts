@@ -18,7 +18,7 @@ describe("GameLogicService", () => {
     ds = TestBed.get(DataService);
   });
 
-  it("should be have a GameLogicService", () => {
+  it("should be created", () => {
     expect(gls).toBeTruthy();
   });
 
