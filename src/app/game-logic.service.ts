@@ -1,10 +1,9 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
-import { cell, winningState, winningCell, gameSession } from './app.module';
-import { DataService } from './data.service';
+import { Injectable, Output, EventEmitter } from "@angular/core";
+import { cell, winningState, winningCell, gameSession } from "./shared-classes";
+import { DataService } from "./data.service";
 
 @Injectable()
 export class GameLogicService {
-
   gameState: cell[][];
   isPlayersTurn: boolean = false;
   playerMarker: string = "X";
@@ -41,8 +40,8 @@ export class GameLogicService {
     }
 
     //diagonals
-    ws = new winningState()
-    ws2 = new winningState()
+    ws = new winningState();
+    ws2 = new winningState();
     for (let i of this.list) {
       ws.cells[i] = this.gameState[i][i];
       ws2.cells[i] = this.gameState[i][2 - i];
@@ -67,7 +66,7 @@ export class GameLogicService {
 
   playerMove(row: number, column: number) {
     if (this.isGameOver) {
-      alert('The game is over!');
+      alert("The game is over!");
       return;
     }
 
@@ -75,9 +74,8 @@ export class GameLogicService {
       this.gameState[row][column].value = this.playerMarker;
       this.checkWinner(this.playerMarker);
       if (!this.isGameOver) this.aiMove();
-    }
-    else {
-      alert('This spot is already taken!');
+    } else {
+      alert("This spot is already taken!");
     }
   }
 
@@ -94,7 +92,6 @@ export class GameLogicService {
   }
 
   checkWinner(marker: string) {
-
     this.evaluateGameState();
 
     let count: number;
@@ -105,13 +102,16 @@ export class GameLogicService {
       }
       if (count == 3) {
         for (let cell of state.cells) {
-          marker == this.playerMarker ? cell.isWinner = winningCell.Player : cell.isWinner = winningCell.AI;
+          marker == this.playerMarker
+            ? (cell.isWinner = winningCell.Player)
+            : (cell.isWinner = winningCell.AI);
         }
         this.setWinner(marker);
       }
     }
     let flatArray: cell[] = [];
-    if (!this.isGameOver) { //check if it's a draw
+    if (!this.isGameOver) {
+      //check if it's a draw
       for (let row of this.list) {
         for (let column of this.list)
           flatArray.push(this.gameState[row][column]);
@@ -121,7 +121,7 @@ export class GameLogicService {
   }
 
   allSpotsTakenNoWinner(cell: cell) {
-    return (cell.value != "" && cell.isWinner == winningCell.None);
+    return cell.value != "" && cell.isWinner == winningCell.None;
   }
 
   setWinner(marker: string) {
@@ -144,10 +144,10 @@ export class GameLogicService {
 
   loadPreviousSession() {
     let promise = new Promise(resolve => {
-      this.d.loadHistoryFromDatabase().then(success=>{
+      this.d.loadHistoryFromDatabase().then(success => {
         this.setSession(this.d.results);
         resolve();
-      })
+      });
     });
     return promise;
   }

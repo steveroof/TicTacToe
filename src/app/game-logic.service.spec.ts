@@ -1,15 +1,28 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject } from "@angular/core/testing";
 
-import { GameLogicService } from './game-logic.service';
+import { GameLogicService } from "./game-logic.service";
+import { DataService } from "./data.service";
+import { HttpClient, HttpHandler } from "@angular/common/http";
+import { BADSTR } from "dns";
 
-describe('GameLogicService', () => {
+describe("GameLogicService", () => {
+  let gls: GameLogicService;
+  let ds: DataService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GameLogicService]
+      providers: [GameLogicService, DataService, HttpClient, HttpHandler]
     });
+
+    gls = TestBed.get(GameLogicService);
+    ds = TestBed.get(DataService);
   });
 
-  it('should be created', inject([GameLogicService], (service: GameLogicService) => {
-    expect(service).toBeTruthy();
-  }));
+  it("should be have a GameLogicService", () => {
+    expect(gls).toBeTruthy();
+  });
+
+  it("should be have a DataService", () => {
+    expect(ds).toBeTruthy();
+  });
 });
